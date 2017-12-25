@@ -28,7 +28,120 @@ public class Calculator extends JFrame implements ActionListener{
 	String Symbol;
 	String Text;
 	
-
+	public void TempNum(String Num) {
+		
+		Temp[c] = Num;
+		System.out.println("temp[c]" + Temp[c]);
+		String tmp = Temp[0];
+		System.out.println("tmp" + tmp);
+		for(int n=1; n<=c ;n++) {
+			tmp = tmp + Temp[n];
+		}
+		System.out.println("after loop tmp" + tmp);
+		TFCalc.setText(tmp);
+		AfterEqual = 0;
+		c = c + 1;
+	}
+	
+	
+	public void Calculation1(String S) {
+		if(AfterEqual == 1) {
+			AnswerHalf = AnswerHalf;
+		}else {
+			String ButtonNo = Temp[0];
+			for(int n = 1 ; n < c ; n++) {
+				ButtonNo = ButtonNo + Temp[n];
+			}
+			
+			ButtonVal = Double.parseDouble(ButtonNo);
+			if(SymbolMark>0) {
+				if(Symbol.equals("+")){
+					System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+					AnswerHalf = AnswerHalf + ButtonVal;
+					System.out.println(AnswerHalf);
+				}else if(Symbol.equals("-")) {
+					System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+					AnswerHalf = AnswerHalf - ButtonVal;
+					System.out.println(AnswerHalf);
+				}else if(Symbol.equals("*")) {
+					System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+					AnswerHalf = AnswerHalf * ButtonVal;
+					System.out.println(AnswerHalf);
+				}else if(Symbol.equals("/")) {
+					System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+					AnswerHalf = AnswerHalf / ButtonVal;
+					System.out.println(AnswerHalf);
+				}else if(Symbol.equals("sqrt")){
+					
+				}
+			}else{
+				System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+				AnswerHalf = ButtonVal;
+				System.out.println(AnswerHalf);
+			}
+			
+		}
+		SymbolMark++;
+		Symbol = S;
+		c =0;
+	}
+	
+	public void Calculation2() {
+		if(AfterAnswer == 0) {
+			String ButtonNo = Temp[0];
+			for(int n = 1 ; n < c ; n++) {
+				ButtonNo = ButtonNo + Temp[n];
+			}
+			ButtonVal = Double.parseDouble(ButtonNo);
+		}else {
+			ButtonVal = Ans;
+		}
+		
+		
+	}
+//	1901507654
+	public void MainCalc() {
+		if(Symbol.equals("+")){
+			System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+			AnswerHalf = AnswerHalf + ButtonVal;
+		}else if(Symbol.equals("-")) {
+			System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+			AnswerHalf = AnswerHalf - ButtonVal;
+		}else if(Symbol.equals("*")) {
+			System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+			AnswerHalf = AnswerHalf * ButtonVal;
+		}else if(Symbol.equals("/")) {
+			System.out.println("before" + AnswerHalf + "and" + ButtonVal);
+			AnswerHalf = AnswerHalf / ButtonVal;
+		}
+		
+		PrintAnswer = Double.toString(AnswerHalf);
+		AfterEqual = 1;
+		SymbolMark = 0;
+		c = 0;
+		AfterAnswer = 0;
+		TFCalc.setText(PrintAnswer);
+	}
+	
+	public void ACMethod() {
+		TFCalc.setText("0");
+		AnswerHalf = 0;
+		AfterEqual = 0;
+		SymbolMark = 0;
+		c= 0;
+	}
+	
+	public void DelMethod() {
+		c = c - 2;
+		String tmp = Temp[0];
+		for(int n = 1; n <= c ; n++) {
+			tmp = tmp + Temp[n];
+		}
+		
+		c++;
+		TFCalc.setText(tmp);
+	}
+	
 	
 	public void initComponents() {
 		
@@ -61,7 +174,7 @@ public class Calculator extends JFrame implements ActionListener{
 		
 		
 	}
-	
+//	Harry Ermawan
 	public void setComponents() {
 		
 		TFCalc.setPreferredSize(new Dimension(370,50));
@@ -130,76 +243,65 @@ public class Calculator extends JFrame implements ActionListener{
 	}
 	
 	/* (non-Javadoc)
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)1901507654 - Harry Ermawan
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getSource()==But0) {
-			
+			TempNum("0");
 		}else if(arg0.getSource()==But1) {
-			
+			TempNum("1");
 		}else if(arg0.getSource()==But2) {
-			
+			TempNum("2");
 		}else if(arg0.getSource()==But3) {
-			
+			TempNum("3");
 		}else if(arg0.getSource()==But4) {
-			
+			TempNum("4");
 		}else if(arg0.getSource()==But5) {
-			
+			TempNum("5");
 		}else if(arg0.getSource()==But6) {
-			
+			TempNum("6");
 		}else if(arg0.getSource()==But7) {
-			
+			TempNum("7");
 		}else if(arg0.getSource()==But8) {
-			
+			TempNum("8");
 		}else if(arg0.getSource()==But9) {
-			
+			TempNum("9");
 		}else if(arg0.getSource()==ButCom) {
-			
+			TempNum(".");
 		}else if(arg0.getSource()==ButDel) {
-			
+			DelMethod();
 		}else if(arg0.getSource()==ButDiv) {
-			
+			TFCalc.setText("/");
+			Calculation1("/");
 		}else if(arg0.getSource()==ButEqu) {
-			
+			TFCalc.setText("=");
+	        AfterEqual = 1;
+	        SymbolMark = 0;
+	        Calculation2();
+	        MainCalc();
 		}else if(arg0.getSource()==ButMin) {
-			
+			TFCalc.setText("-");
+			Calculation1("-");
 		}else if(arg0.getSource()==ButMulti) {
-			
+			TFCalc.setText("*");
+			Calculation1("*");
 		}else if(arg0.getSource()==ButPlus) {
-			
+			TFCalc.setText("+");
+			Calculation1("+");
 		}else if(arg0.getSource()==ButRep) {
 			
 		}else if(arg0.getSource()==ButReset) {
-			
+			ACMethod();
 		}else if(arg0.getSource()==ButSqrt) {
 			
 		}
 	}
 	
-	public void TempNum(String Num) {
-		Temp[c] = Num;
-		String tmp = Temp[0];
-		for(int n=1; n<=c ;n++) {
-			tmp = tmp + Temp[n];
-		}
-		
-		TFCalc.setText(tmp);
-		AfterEqual = 0;
-		c = c + 1;
-	}
+
+
 	
-	public void Calculation(String S) {
-		if(AfterEqual == 1) {
-			AnswerHalf = AnswerHalf;
-		}else {
-			String ButtonNo = Temp[0];
-			for(int n = 0 ; n < c ; n++) {
-				ButtonNo = ButtonNo + Temp[n];
-			}
-		}
-	}
 	
 	public Calculator() {
 		// TODO Auto-generated constructor stub
